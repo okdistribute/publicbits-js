@@ -1,0 +1,25 @@
+{
+  "name": "dat-registry-api",
+  "version": "1.0.0",
+  "description": "interacts with the dat registry api",
+  "main": "index.js",
+  "scripts": {
+    "test": "npm test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/karissa/dat-registry-api.git"
+  },
+  "keywords": [
+    "api",
+    "js",
+    "dat",
+    "registry"
+  ],
+  "author": "Karissa McKelvey <karissa@karissamck.com> (http://karissamck.com/)",
+  "license": "bsd",
+  "bugs": {
+    "url": "https://github.com/karissa/dat-registry-api/issues"
+  },
+  "homepage": "https://github.com/karissa/dat-registry-api"
+}
