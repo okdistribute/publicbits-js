@@ -1,5 +1,5 @@
 #dathub-api-client
-[![NPM](https://nodei.co/npm/dat-registry-api.png)](https://nodei.co/npm/dat-registry-api/)
+[![NPM](https://nodei.co/npm/dathub-api-client.png)](https://nodei.co/npm/dathub-api-client/)
 
 [![Travis](http://img.shields.io/travis/karissa/dathub-api-client.svg?style=flat)](https://travis-ci.org/karissa/dathub-api-client)
 
