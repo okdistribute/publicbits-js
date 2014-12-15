@@ -1,4 +1,3 @@
-var request = require('./error-request.js')
 var Metadats = require('./metadats.js')
 var Users = require('./users.js')
 
