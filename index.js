@@ -1,5 +1,5 @@
-var Metadats = require('./metadats.js')
-var Users = require('./users.js')
+var Metadats = require('./models/metadats.js')
+var Users = require('./models/users.js')
 
 function registry(defaults) {
   return {

@@ -1,5 +1,5 @@
 var util = require('util')
-var Model = require('./model')
+var Model = require('./')
 
 function Users(defaults) {
   Model.call(this, defaults);
