@@ -1,6 +1,8 @@
-var request = require('request')
+var request;
 
 function Model(defaults) {
+  if (defaults.xhr) request = require('xhr')
+  else request = require('request')
   this.defaults = defaults
 }
 
