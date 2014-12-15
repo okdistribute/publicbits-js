@@ -30,7 +30,6 @@ Metadats.prototype.create = function (metadat, cb) {
     method: 'POST',
     json: metadat
   }
-
   this.request(options, function (err, resp, json) {
     if (err) return cb(err)
     metadat.id = json.id
@@ -68,11 +67,13 @@ Metadats.prototype.all = function (cb) {
 }
 
 Metadats.prototype.getById = function (metadatId, cb) {
+  console.log('getting by id', metadatId)
   var options = {
     uri: '/api/metadat/' + metadatId,
     method: 'GET',
     json: true
   }
+
   this.request(options, function (err, resp, json) {
     if (err) {
       return cb(new Error('Could not get that dat, are you sure the ID is right?'))

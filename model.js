@@ -5,22 +5,21 @@ function Model(defaults) {
 }
 
 Model.prototype.request = function(options, callback) {
-  console.log('requesting', options)
   if (this.defaults.uri) {
     // direct to custom domain location
     options.uri = this.defaults.uri + options.uri
   }
+  console.log('requesting', options)
   request(options, function (err, resp, json) {
     if (err) {
       console.error(err)
       return callback(err)
     }
     if (json && json.status == 'error') {
-      console.error(json.message)
+      console.error('error in request: ', json.message)
       return callback(new Error(json.message))
     }
     else {
-      console.log('response', err, resp, json)
       return callback(err, resp, json)
     }
   })
