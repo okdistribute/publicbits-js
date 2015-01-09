@@ -1,6 +1,6 @@
 {
   "name": "dathub-api-client",
-  "version": "1.0.2",
+  "version": "1.1.0",
   "description": "interacts with dathub.org",
   "main": "index.js",
   "scripts": {
