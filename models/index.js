@@ -1,8 +1,7 @@
-var request;
+var request = require('nets')
+var debug = require('debug')('dathub-api-client')
 
 function Model(defaults) {
-  if (defaults.xhr) request = require('xhr')
-  else request = require('request')
   this.defaults = defaults
 }
 
@@ -11,17 +10,16 @@ Model.prototype.request = function(options, callback) {
     // direct to custom domain location
     options.uri = this.defaults.uri + options.uri
   }
-  console.log('requesting', options)
+  debug('requesting', options)
   request(options, function (err, resp, json) {
     if (err) {
-      console.error(err)
+      debug('error', err)
       return callback(err)
     }
     if (json && json.status == 'error') {
-      console.error('error in request: ', json.message)
-      return callback(new Error(json.message))
-    }
-    else {
+      debug('error in request:', json)
+      return callback(new Error(json.message || json.error))
+    } else {
       return callback(err, resp, json)
     }
   })

@@ -62,23 +62,26 @@ module.exports.simpleRefusal = function (test, common) {
 module.exports.integrationCreate = function (test, common) {
   test('can create a metadat', function (t) {
     common.getRegistry(t, function (err, api, done) {
-      var metadat_data = {
-        name: 'ima medatat',
-        description: 'weee',
-        url: 'http://metadat.dathub.org',
-        owner_id: 'karissa',
-        json: {"blah": "hello"}
-      }
-
-      datapi.metadats.create(metadat_data, function (err, metadat) {
-        t.ifError(err)
-        t.ok(metadat)
-        t.ok(metadat.id)
-        datapi.metadats.getById(metadat.id, function (err, getMetadat) {
+      common.login(api, function(err, jar, res) {
+        var metadat_data = {
+          name: 'ima medatat',
+          description: 'weee',
+          url: 'http://metadat.dathub.org',
+          owner_id: 'karissa',
+          json: {"blah": "hello"}
+        }
+        var opts = {headers: {cookie: res.headers['set-cookie']}}
+        datapi.metadats.create(metadat_data, opts, function (err, metadat) {
+          console.log('create', metadat)
           t.ifError(err)
-          t.equals(metadat.url, getMetadat.url, 'can create and retrieve the metadat from the js api')
-          done()
-        })
+          t.ok(metadat)
+          t.ok(metadat.id)
+          datapi.metadats.getById(metadat.id, opts, function (err, getMetadat) {
+            t.ifError(err)
+            t.equals(metadat.url, getMetadat.url, 'can create and retrieve the metadat from the js api')
+            done()
+          })
+        })        
       })
     })
   })
@@ -88,4 +91,3 @@ module.exports.all = function(test, common) {
   module.exports.simpleRefusal(test, common);
   module.exports.integrationCreate(test, common);
 }
-

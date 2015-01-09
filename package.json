@@ -26,13 +26,15 @@
   },
   "homepage": "https://github.com/karissa/dat-registry-api",
   "dependencies": {
+    "debug": "^2.1.1",
+    "extend": "^2.0.0",
+    "nets": "^2.0.0",
     "querystring": "^0.2.0",
-    "request": "^2.51.0",
     "utils": "0.0.2"
   },
   "devDependencies": {
+    "dathub": "^2.0.0",
     "browserify": "^7.0.0",
-    "dathub": "^1.0.0",
     "rimraf": "^2.2.8",
     "tap-spec": "^2.1.1",
     "tape": "^3.0.3"
