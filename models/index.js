@@ -14,11 +14,11 @@ Model.prototype.request = function(options, callback) {
   request(options, function (err, resp, json) {
     if (err) {
       debug('error', err)
-      return callback(err)
+      return callback(err, resp, json)
     }
     if (json && json.status == 'error') {
       debug('error in request:', json)
-      return callback(new Error(json.message || json.error))
+      return callback(new Error(json.message || json.error), resp, json)
     } else {
       return callback(err, resp, json)
     }
