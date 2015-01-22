@@ -44,22 +44,22 @@ Metadats.prototype.create = function (metadat, opts, cb) {
 }
 
 /** Functions to act upon metadats **/
-// Metadats.prototype.query = function (params, cb) {
-//   // Parameters
-//   // params: dict
-//   //  keys represent the fields to filter upon
-//   if (!params) {
-//     return cb(new Error('Give at least one param or use the `all` function.'))
-//   }
-//   var options = {
-//     uri: '/api/metadat?' + qs.stringify(params),
-//     method: 'GET',
-//     json: true
-//   }
-//   this.request(options, function (err, resp, json) {
-//     return cb(err, json)
-//   })
-// }
+Metadats.prototype.query = function (params, cb) {
+  // Parameters
+  // params: dict
+  //  keys represent the fields to filter upon
+  if (!params) {
+    return cb(new Error('Give at least one param or use the `all` function.'))
+  }
+  var options = {
+    uri: '/api/metadat?' + qs.stringify(params),
+    method: 'GET',
+    json: true
+  }
+  this.request(options, function (err, resp, json) {
+    return cb(err, json)
+  })
+}
 
 Metadats.prototype.all = function (opts, cb) {
   if (typeof opts === 'function') {
