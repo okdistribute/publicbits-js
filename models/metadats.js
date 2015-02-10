@@ -66,6 +66,21 @@ Metadats.prototype.all = function (cb) {
   })
 }
 
+Metadats.prototype.searchByField = function (query, field, cb) {
+  var options = {
+    uri: '/search/' + field,
+    method: 'GET',
+    json: true,
+    qs: {
+      query: query
+    }
+
+  }
+  this.request(options, function (err, resp, json) {
+    return cb(err, json)
+  })
+}
+
 Metadats.prototype.getById = function (metadatId, cb) {
   console.log('getting by id', metadatId)
   var options = {

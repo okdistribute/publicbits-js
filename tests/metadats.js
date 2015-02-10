@@ -77,13 +77,26 @@ module.exports.integration = function (test, common) {
         })
         datapi.metadats.create(metadat_data, function (err, metadat) {
           t.ifError(err)
-          t.equals(metadat.url, getMetadat.url, 'can create and retrieve the metadat from the js api')
-          done()
+          t.ok(metadat)
+          t.ok(metadat.id)
+
+          datapi.metadats.getById(metadat.id, function (err, getMetadat) {
+            t.ifError(err)
+            t.equals(metadat.url, getMetadat.url, 'can create and retrieve the metadat from the js api')
+
+            datapi.metadats.searchByField('ima medatat', 'name', function (err, metadats) {
+              t.ifError(err)
+              t.equals(metadats.rows.length, 1)
+              done()
+            })
+          })
         })
       })
     })
   })
 }
+
+
 
 module.exports.all = function(test, common) {
   module.exports.simpleRefusal(test, common);
