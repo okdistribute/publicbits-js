@@ -11,6 +11,8 @@ Model.prototype.request = function(options, callback) {
     // direct to custom domain location
     options.uri = this.defaults.uri + options.uri
   }
+  if (this.defaults.jar) options.jar = this.defaults.jar
+
   console.log('requesting', options)
   request(options, function (err, resp, json) {
     if (err) {

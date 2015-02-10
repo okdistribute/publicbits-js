@@ -1,7 +1,7 @@
 var test = require('tape')
-var datapi = require('../').defaults({ uri: 'http://localhost:5000'})
 
 module.exports.simpleRefusal = function (test, common) {
+  var datapi = require('../').defaults({ uri: 'http://localhost:5000'})
   test('cant create a metadat without name and description and url', function (t) {
     var metadat_data = {
       name: '',
@@ -59,7 +59,7 @@ module.exports.simpleRefusal = function (test, common) {
   })
 }
 
-module.exports.integrationCreate = function (test, common) {
+module.exports.integration = function (test, common) {
   test('can create a metadat', function (t) {
     common.getRegistry(t, function (err, api, done) {
       var metadat_data = {
@@ -69,12 +69,13 @@ module.exports.integrationCreate = function (test, common) {
         owner_id: 'karissa',
         json: {"blah": "hello"}
       }
-
-      datapi.metadats.create(metadat_data, function (err, metadat) {
-        t.ifError(err)
-        t.ok(metadat)
-        t.ok(metadat.id)
-        datapi.metadats.getById(metadat.id, function (err, getMetadat) {
+      common.login(api, function(err, jar) {
+        if (err) t.ifErr(err)
+        var datapi = require('../').defaults({
+          jar: jar,
+          uri: 'http://localhost:5000'
+        })
+        datapi.metadats.create(metadat_data, function (err, metadat) {
           t.ifError(err)
           t.equals(metadat.url, getMetadat.url, 'can create and retrieve the metadat from the js api')
           done()
@@ -86,6 +87,6 @@ module.exports.integrationCreate = function (test, common) {
 
 module.exports.all = function(test, common) {
   module.exports.simpleRefusal(test, common);
-  module.exports.integrationCreate(test, common);
+  module.exports.integration(test, common);
 }
 
