@@ -59,7 +59,7 @@ module.exports.simpleRefusal = function (test, common) {
   })
 }
 
-module.exports.integration = function (test, common) {
+module.exports.integrationCreate = function (test, common) {
   test('can create a metadat', function (t) {
     common.getRegistry(t, function (err, api, done) {
       common.login(api, function(err, jar, res) {
@@ -73,6 +73,7 @@ module.exports.integration = function (test, common) {
         var opts = {headers: {cookie: res.headers['set-cookie']}}
         datapi.metadats.create(metadat_data, opts, function (err, metadat) {
           console.log('create', metadat)
+
           t.ifError(err)
           t.ok(metadat)
           t.ok(metadat.id)
@@ -96,5 +97,5 @@ module.exports.integration = function (test, common) {
 
 module.exports.all = function(test, common) {
   module.exports.simpleRefusal(test, common);
-  module.exports.integration(test, common);
+  module.exports.integrationCreate(test, common);
 }
