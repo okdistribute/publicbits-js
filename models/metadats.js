@@ -35,7 +35,7 @@ Metadats.prototype.create = function (metadat, opts, cb) {
     method: 'POST',
     json: metadat
   }, opts)
-  
+
   this.request(options, function (err, resp, json) {
     if (err) return cb(err)
     metadat.id = json.id
