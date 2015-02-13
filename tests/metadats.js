@@ -68,12 +68,14 @@ module.exports.integrationCreate = function (test, common) {
           description: 'weee',
           url: 'http://metadat.dathub.org',
           owner_id: 'karissa',
+          datasets: [{
+            name: 'one'
+          }],
+          readme: 'hello readme',
           json: {"blah": "hello"}
         }
         var opts = {headers: {cookie: res.headers['set-cookie']}}
         datapi.metadats.create(metadat_data, opts, function (err, metadat) {
-          console.log('create', metadat)
-
           t.ifError(err)
           t.ok(metadat)
           t.ok(metadat.id)
@@ -95,7 +97,53 @@ module.exports.integrationCreate = function (test, common) {
 
 
 
+
+module.exports.integrationUpdate = function (test, common) {
+  test('can update a metadat', function (t) {
+    common.getRegistry(t, function (err, api, done) {
+      common.login(api, function(err, jar, res) {
+        var metadat_data = {
+          name: 'ima medatat2',
+          description: 'weee',
+          url: 'http://metadat.dathub.org',
+          owner_id: 'karissa',
+          datasets: [{
+            name: 'one'
+          }],
+          readme: 'hello readme',
+          json: {"blah": "hello"}
+        }
+        var opts = {headers: {cookie: res.headers['set-cookie']}}
+        datapi.metadats.create(metadat_data, opts, function (err, metadat) {
+          t.ifError(err)
+
+          datapi.metadats.getById(metadat.id, function (err, getMetadat) {
+            t.ifError(err)
+            t.equals(metadat.url, getMetadat.url, 'can create and retrieve the metadat from the js api')
+            t.equals(metadat.readme, getMetadat.readme)
+
+            metadat_data.readme = 'a new readme'
+            datapi.metadats.update(metadat.id, metadat_data, opts, function (err, metadat) {
+              t.ifError(err)
+              t.equals(metadat.readme, metadat_data.readme, 'readme changed')
+
+              datapi.metadats.getById(metadat.id, function (err, getMetadat) {
+                t.ifError(err)
+                t.equals(metadat.url, getMetadat.url, 'can create and retrieve the metadat from the js api')
+                done()
+              })
+            })
+          })
+        })
+      })
+    })
+  })
+}
+
+
+
 module.exports.all = function(test, common) {
   module.exports.simpleRefusal(test, common);
   module.exports.integrationCreate(test, common);
+  module.exports.integrationUpdate(test, common);
 }

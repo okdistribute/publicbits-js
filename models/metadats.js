@@ -19,6 +19,25 @@ Metadats.prototype.sanitize = function(metadat) {
   return metadat
 }
 
+/** Updating **/
+Metadats.prototype.update = function (id, metadat, opts, cb) {
+ if (typeof opts === 'function') {
+    cb = opts
+    opts = {}
+  }
+
+  var options = extend({
+    uri: '/api/metadat/' + id,
+    method: 'PUT',
+    json: metadat
+  }, opts)
+
+  this.request(options, function (err, resp, json) {
+    if (err) return cb(err)
+    return cb(null, json)
+  })
+}
+
 /** Creating a metadat **/
 Metadats.prototype.create = function (metadat, opts, cb) {
   if (typeof opts === 'function') {
