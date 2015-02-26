@@ -116,16 +116,15 @@ Metadats.prototype.getById = function (metadatId, opts, cb) {
 }
 
 Metadats.prototype.searchByField = function (field, opts, cb) {
+  var params = {
+    query: opts.query,
+    limit: opts.limit,
+    offset: opts.offset
+  }
   var options = {
-    uri: '/search/' + field,
+    uri: '/search/' + field + '?' + qs.stringify(params),
     method: 'GET',
-    json: true,
-    qs: {
-      query: opts.query,
-      limit: opts.limit,
-      offset: opts.offset
-    }
-
+    json: true
   }
   this.request(options, function (err, resp, json) {
     return cb(err, resp, json)
