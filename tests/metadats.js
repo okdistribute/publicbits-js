@@ -83,7 +83,11 @@ module.exports.integrationCreate = function (test, common) {
             t.ifError(err)
             t.equals(metadat.url, getMetadat.url, 'can create and retrieve the metadat from the js api')
 
-            datapi.metadats.searchByField('ima medatat', 'name', function (err, metadats) {
+            var opts = {
+              query: 'ima medatat'
+            }
+
+            datapi.metadats.searchByField('name', opts, function (err, metadats) {
               t.ifError(err)
               t.equals(metadats.rows.length, 1)
               done()
