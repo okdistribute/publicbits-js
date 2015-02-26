@@ -14,7 +14,7 @@ Users.prototype.currentUser = function(cb) {
   }
 
   this.request(options, function (err, resp, json) {
-    cb(err, json.user)
+    cb(err, resp, json.user)
   })
 }
 
@@ -25,7 +25,7 @@ Users.prototype.get = function (handle, cb) {
     json: true
   }
   this.request(options, function (err, resp, json) {
-    return cb(err, json)
+    return cb(err, resp, json)
   })
 }
 
@@ -36,7 +36,7 @@ Users.prototype.update = function (user, cb) {
     json: user
   }
   this.request(options, function (err, resp, json) {
-    return cb(err)
+    return cb(err, resp)
   });
 }
 

@@ -34,7 +34,7 @@ Metadats.prototype.update = function (id, metadat, opts, cb) {
 
   this.request(options, function (err, resp, json) {
     if (err) return cb(err)
-    return cb(null, json)
+    return cb(null, resp, json)
   })
 }
 
@@ -58,7 +58,7 @@ Metadats.prototype.create = function (metadat, opts, cb) {
   this.request(options, function (err, resp, json) {
     if (err) return cb(err)
     metadat.id = json.id
-    return cb(null, metadat)
+    return cb(null, resp, metadat)
   })
 }
 
@@ -76,7 +76,7 @@ Metadats.prototype.query = function (params, cb) {
     json: true
   }
   this.request(options, function (err, resp, json) {
-    return cb(err, json)
+    return cb(err, resp, json)
   })
 }
 
@@ -91,7 +91,7 @@ Metadats.prototype.all = function (opts, cb) {
     json: true
   }, opts)
   this.request(options, function (err, resp, json) {
-    return cb(err, json) //handled later
+    return cb(err, resp, json) //handled later
   })
 }
 
@@ -111,7 +111,7 @@ Metadats.prototype.getById = function (metadatId, opts, cb) {
     if (err) {
       return cb(new Error('Could not get that dat, are you sure the ID is right?'))
     }
-    return cb(null, json)
+    return cb(null, resp, json)
   })
 }
 
@@ -128,7 +128,7 @@ Metadats.prototype.searchByField = function (field, opts, cb) {
 
   }
   this.request(options, function (err, resp, json) {
-    return cb(err, json)
+    return cb(err, resp, json)
   })
 }
 

@@ -9,7 +9,7 @@ module.exports.simpleRefusal = function (test, common) {
       owner_id: 'karissa',
       url: 'http://metadat.dathub.org'
     }
-    datapi.metadats.create(metadat_data, function (err, metadat) {
+    datapi.metadats.create(metadat_data, function (err, resp, metadat) {
       t.throws(err, 'should error without name')
     })
 
@@ -20,7 +20,7 @@ module.exports.simpleRefusal = function (test, common) {
       url: 'http://metadat.dathub.org'
     }
 
-    datapi.metadats.create(metadat_data, function (err, metadat) {
+    datapi.metadats.create(metadat_data, function (err, resp, metadat) {
       t.throws(err, 'should error without description')
     })
 
@@ -31,7 +31,7 @@ module.exports.simpleRefusal = function (test, common) {
       url: 'http://metadat.dathub.org'
     }
 
-    datapi.metadats.create(metadat_data, function (err, metadat) {
+    datapi.metadats.create(metadat_data, function (err, resp, metadat) {
       t.throws(err, 'should error with no name and desc')
     })
 
@@ -42,7 +42,7 @@ module.exports.simpleRefusal = function (test, common) {
       url: ''
     }
 
-    datapi.metadats.create(metadat_data, function (err, metadat) {
+    datapi.metadats.create(metadat_data, function (err, resp, metadat) {
       t.throws(err, 'should error with no url')
     })
 
@@ -52,7 +52,7 @@ module.exports.simpleRefusal = function (test, common) {
       url: ''
     }
 
-    datapi.metadats.create(metadat_data, function (err, metadat) {
+    datapi.metadats.create(metadat_data, function (err, resp, metadat) {
       t.throws(err, 'should error with no name, desc, url')
       t.end()
     })
@@ -75,11 +75,11 @@ module.exports.integrationCreate = function (test, common) {
           json: {"blah": "hello"}
         }
         var opts = {headers: {cookie: res.headers['set-cookie']}}
-        datapi.metadats.create(metadat_data, opts, function (err, metadat) {
+        datapi.metadats.create(metadat_data, opts, function (err, resp, metadat) {
           t.ifError(err)
           t.ok(metadat)
           t.ok(metadat.id)
-          datapi.metadats.getById(metadat.id, function (err, getMetadat) {
+          datapi.metadats.getById(metadat.id, function (err, resp, getMetadat) {
             t.ifError(err)
             t.equals(metadat.url, getMetadat.url, 'can create and retrieve the metadat from the js api')
 
@@ -87,7 +87,7 @@ module.exports.integrationCreate = function (test, common) {
               query: 'ima medatat'
             }
 
-            datapi.metadats.searchByField('name', opts, function (err, metadats) {
+            datapi.metadats.searchByField('name', opts, function (err, resp, metadats) {
               t.ifError(err)
               t.equals(metadats.rows.length, 1)
               done()
@@ -118,20 +118,20 @@ module.exports.integrationUpdate = function (test, common) {
           json: {"blah": "hello"}
         }
         var opts = {headers: {cookie: res.headers['set-cookie']}}
-        datapi.metadats.create(metadat_data, opts, function (err, metadat) {
+        datapi.metadats.create(metadat_data, opts, function (err, resp, metadat) {
           t.ifError(err)
 
-          datapi.metadats.getById(metadat.id, function (err, getMetadat) {
+          datapi.metadats.getById(metadat.id, function (err, res, getMetadat) {
             t.ifError(err)
             t.equals(metadat.url, getMetadat.url, 'can create and retrieve the metadat from the js api')
             t.equals(metadat.readme, getMetadat.readme)
 
             metadat_data.readme = 'a new readme'
-            datapi.metadats.update(metadat.id, metadat_data, opts, function (err, metadat) {
+            datapi.metadats.update(metadat.id, metadat_data, opts, function (err, resp, metadat) {
               t.ifError(err)
               t.equals(metadat.readme, metadat_data.readme, 'readme changed')
 
-              datapi.metadats.getById(metadat.id, function (err, getMetadat) {
+              datapi.metadats.getById(metadat.id, function (err, resp, getMetadat) {
                 t.ifError(err)
                 t.equals(metadat.url, getMetadat.url, 'can create and retrieve the metadat from the js api')
                 done()
