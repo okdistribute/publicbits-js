@@ -9,22 +9,20 @@ function Metadats(defaults) {
 }
 util.inherits(Metadats, Model)
 
-Metadats.prototype.sanitize = function(metadat) {
-  if (metadat.name) {
-    metadat.name = metadat.name.trim()
-  }
-  if (metadat.description) {
-    metadat.description = metadat.description.trim()
-  }
-  return metadat
+Metadats.prototype.refresh = function (id, opts, cb) {
+ if (typeof opts === 'function') return this.refresh(id, {}, opts)
+
+  var options = extend({
+    uri: '/api/metadat/' + id,
+    method: 'PUT',
+    json: {id: id, refresh: true}
+  }, opts)
+
+  this.request(options, cb)
 }
 
-/** Updating **/
 Metadats.prototype.update = function (id, metadat, opts, cb) {
- if (typeof opts === 'function') {
-    cb = opts
-    opts = {}
-  }
+ if (typeof opts === 'function') return this.update(id, metadat, {}, opts)
 
   var options = extend({
     uri: '/api/metadat/' + id,
@@ -32,22 +30,11 @@ Metadats.prototype.update = function (id, metadat, opts, cb) {
     json: metadat
   }, opts)
 
-  this.request(options, function (err, resp, json) {
-    if (err) return cb(err)
-    return cb(null, resp, json)
-  })
+  this.request(options, cb)
 }
 
-/** Creating a metadat **/
 Metadats.prototype.create = function (metadat, opts, cb) {
-  if (typeof opts === 'function') {
-    cb = opts
-    opts = {}
-  }
-  var metadat = this.sanitize(metadat)
-  if (!metadat.name || !metadat.description || !metadat.url) {
-    return cb('Requires a name and description.')
-  }
+  if (typeof opts === 'function') return this.create(metadat, {}, opts)
 
   var options = extend({
     uri: '/api/metadat',
@@ -62,7 +49,6 @@ Metadats.prototype.create = function (metadat, opts, cb) {
   })
 }
 
-/** Functions to act upon metadats **/
 Metadats.prototype.query = function (params, cb) {
   // Parameters
   // params: dict
@@ -75,9 +61,7 @@ Metadats.prototype.query = function (params, cb) {
     method: 'GET',
     json: true
   }
-  this.request(options, function (err, resp, json) {
-    return cb(err, resp, json)
-  })
+  this.request(options, cb)
 }
 
 Metadats.prototype.all = function (opts, cb) {
@@ -90,9 +74,7 @@ Metadats.prototype.all = function (opts, cb) {
     method: 'GET',
     json: true
   }, opts)
-  this.request(options, function (err, resp, json) {
-    return cb(err, resp, json) //handled later
-  })
+  this.request(options, cb)
 }
 
 Metadats.prototype.getById = function (metadatId, opts, cb) {
@@ -126,9 +108,7 @@ Metadats.prototype.searchByField = function (field, opts, cb) {
     method: 'GET',
     json: true
   }
-  this.request(options, function (err, resp, json) {
-    return cb(err, resp, json)
-  })
+  this.request(options, cb)
 }
 
 module.exports = Metadats

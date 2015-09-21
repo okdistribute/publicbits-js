@@ -99,9 +99,6 @@ module.exports.integrationCreate = function (test, common) {
   })
 }
 
-
-
-
 module.exports.integrationUpdate = function (test, common) {
   test('can update a metadat', function (t) {
     common.getRegistry(t, function (err, api, done) {

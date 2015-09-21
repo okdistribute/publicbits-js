@@ -10,15 +10,14 @@ Model.prototype.request = function(options, callback) {
     // direct to custom domain location
     options.uri = this.defaults.uri + options.uri
   }
-  debug('requesting', options)
+  console.log('requesting', options)
   request(options, function (err, resp, json) {
-    if (err) {
-      debug('error', err)
-      return callback(err, resp, json)
-    }
     if (json && json.status == 'error') {
-      debug('error in request:', json)
+      console.error('error in request:', json)
       return callback(new Error(json.message || json.error), resp, json)
+    } else if (err) {
+      console.error('error', err)
+      return callback(err, resp, json)
     } else {
       return callback(err, resp, json)
     }
