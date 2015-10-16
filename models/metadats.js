@@ -7,6 +7,7 @@ var Model = require('./')
 function Metadats (defaults) {
   Model.call(this, defaults)
 }
+
 util.inherits(Metadats, Model)
 
 Metadats.prototype.refresh = function (id, opts, cb) {
@@ -100,8 +101,8 @@ Metadats.prototype.getById = function (metadatId, opts, cb) {
 Metadats.prototype.searchByField = function (field, opts, cb) {
   var params = {
     query: opts.query,
-    limit: opts.limit,
-    offset: opts.offset
+    limit: opts.limit || 50,
+    offset: opts.offset || 0
   }
   var options = {
     uri: '/search/' + field + '?' + qs.stringify(params),
