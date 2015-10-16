@@ -1,12 +1,12 @@
 var util = require('util')
 var Model = require('./')
 
-function Users(defaults) {
-  Model.call(this, defaults);
+function Users (defaults) {
+  Model.call(this, defaults)
 }
 util.inherits(Users, Model)
 
-Users.prototype.currentUser = function(cb) {
+Users.prototype.currentUser = function (cb) {
   var options = {
     uri: '/auth/currentuser',
     method: 'GET',
@@ -37,7 +37,7 @@ Users.prototype.update = function (user, cb) {
   }
   this.request(options, function (err, resp, json) {
     return cb(err, resp)
-  });
+  })
 }
 
 module.exports = Users

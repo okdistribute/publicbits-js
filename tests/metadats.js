@@ -1,5 +1,4 @@
-var test = require('tape')
-var datapi = require('../').defaults({ uri: 'http://localhost:5000'})
+var datapi = require('../').defaults({uri: 'http://localhost:5000'})
 
 module.exports.simpleRefusal = function (test, common) {
   test('cant create a metadat without name and description and url', function (t) {
@@ -62,7 +61,9 @@ module.exports.simpleRefusal = function (test, common) {
 module.exports.integrationCreate = function (test, common) {
   test('can create a metadat', function (t) {
     common.getRegistry(t, function (err, api, done) {
-      common.login(api, function(err, jar, res) {
+      t.ifError(err)
+      common.login(api, function (err, jar, res) {
+        t.ifError(err)
         var metadat_data = {
           name: 'ima medatat',
           description: 'weee',
@@ -72,7 +73,7 @@ module.exports.integrationCreate = function (test, common) {
             name: 'one'
           }],
           readme: 'hello readme',
-          json: {"blah": "hello"}
+          json: {'blah': 'hello'}
         }
         var opts = {headers: {cookie: res.headers['set-cookie']}}
         datapi.metadats.create(metadat_data, opts, function (err, resp, metadat) {
@@ -102,7 +103,9 @@ module.exports.integrationCreate = function (test, common) {
 module.exports.integrationUpdate = function (test, common) {
   test('can update a metadat', function (t) {
     common.getRegistry(t, function (err, api, done) {
-      common.login(api, function(err, jar, res) {
+      t.ifError(err)
+      common.login(api, function (err, jar, res) {
+        t.ifError(err)
         var metadat_data = {
           name: 'ima medatat2',
           description: 'weee',
@@ -112,7 +115,7 @@ module.exports.integrationUpdate = function (test, common) {
             name: 'one'
           }],
           readme: 'hello readme',
-          json: {"blah": "hello"}
+          json: {'blah': 'hello'}
         }
         var opts = {headers: {cookie: res.headers['set-cookie']}}
         datapi.metadats.create(metadat_data, opts, function (err, resp, metadat) {
@@ -141,10 +144,8 @@ module.exports.integrationUpdate = function (test, common) {
   })
 }
 
-
-
-module.exports.all = function(test, common) {
-  module.exports.simpleRefusal(test, common);
-  module.exports.integrationCreate(test, common);
-  module.exports.integrationUpdate(test, common);
+module.exports.all = function (test, common) {
+  module.exports.simpleRefusal(test, common)
+  module.exports.integrationCreate(test, common)
+  module.exports.integrationUpdate(test, common)
 }

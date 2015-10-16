@@ -4,13 +4,13 @@ var util = require('util')
 
 var Model = require('./')
 
-function Metadats(defaults) {
-  Model.call(this, defaults);
+function Metadats (defaults) {
+  Model.call(this, defaults)
 }
 util.inherits(Metadats, Model)
 
 Metadats.prototype.refresh = function (id, opts, cb) {
- if (typeof opts === 'function') return this.refresh(id, {}, opts)
+  if (typeof opts === 'function') return this.refresh(id, {}, opts)
 
   var options = extend({
     uri: '/api/metadat/' + id,
@@ -22,7 +22,7 @@ Metadats.prototype.refresh = function (id, opts, cb) {
 }
 
 Metadats.prototype.update = function (id, metadat, opts, cb) {
- if (typeof opts === 'function') return this.update(id, metadat, {}, opts)
+  if (typeof opts === 'function') return this.update(id, metadat, {}, opts)
 
   var options = extend({
     uri: '/api/metadat/' + id,
