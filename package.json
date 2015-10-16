@@ -1,5 +1,5 @@
 {
-  "name": "dathub-api-client",
+  "name": "publicbits-js",
   "version": "2.0.1",
   "description": "interacts with dathub.org",
   "main": "index.js",
@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/karissa/dathub-api-client.git"
+    "url": "https://github.com/karissa/publicbits-js.git"
   },
   "keywords": [
     "api",
@@ -22,9 +22,9 @@
   "author": "Karissa McKelvey <karissa@karissamck.com> (http://karissamck.com/)",
   "license": "bsd",
   "bugs": {
-    "url": "https://github.com/karissa/dat-registry-api/issues"
+    "url": "https://github.com/karissa/publicbits-js/issues"
   },
-  "homepage": "https://github.com/karissa/dat-registry-api",
+  "homepage": "https://github.com/karissa/publicbits-js",
   "dependencies": {
     "debug": "^2.1.1",
     "extend": "^2.0.0",
