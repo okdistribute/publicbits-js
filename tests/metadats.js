@@ -17,7 +17,7 @@ module.exports.simpleRefusal = function (test, common) {
       owner_id: 'karissa',
       url: 'http://metadat.dathub.org'
     }
-    datapi.metadats.create(metadat_data, function (err, resp, metadat) {
+    datapi.metadats.publish(metadat_data, function (err, resp, metadat) {
       t.throws(err, 'should error without name')
     })
 
@@ -28,7 +28,7 @@ module.exports.simpleRefusal = function (test, common) {
       url: 'http://metadat.dathub.org'
     }
 
-    datapi.metadats.create(metadat_data, function (err, resp, metadat) {
+    datapi.metadats.publish(metadat_data, function (err, resp, metadat) {
       t.throws(err, 'should error without description')
     })
 
@@ -39,7 +39,7 @@ module.exports.simpleRefusal = function (test, common) {
       url: 'http://metadat.dathub.org'
     }
 
-    datapi.metadats.create(metadat_data, function (err, resp, metadat) {
+    datapi.metadats.publish(metadat_data, function (err, resp, metadat) {
       t.throws(err, 'should error with no name and desc')
     })
 
@@ -50,7 +50,7 @@ module.exports.simpleRefusal = function (test, common) {
       url: ''
     }
 
-    datapi.metadats.create(metadat_data, function (err, resp, metadat) {
+    datapi.metadats.publish(metadat_data, function (err, resp, metadat) {
       t.throws(err, 'should error with no url')
     })
 
@@ -60,7 +60,7 @@ module.exports.simpleRefusal = function (test, common) {
       url: ''
     }
 
-    datapi.metadats.create(metadat_data, function (err, resp, metadat) {
+    datapi.metadats.publish(metadat_data, function (err, resp, metadat) {
       t.throws(err, 'should error with no name, desc, url')
       t.end()
     })
@@ -107,7 +107,7 @@ module.exports.integrationUpdate = function (test, common) {
           json: {'blah': 'hello'}
         }
         var opts = {headers: {cookie: res.headers['set-cookie']}}
-        datapi.metadats.create(metadat_data, opts, function (err, resp, metadat) {
+        datapi.metadats.publish(metadat_data, opts, function (err, resp, metadat) {
           t.ifError(err)
 
           datapi.metadats.getById(metadat.id, function (err, res, getMetadat) {

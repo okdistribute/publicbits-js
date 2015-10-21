@@ -12,5 +12,5 @@ function registry (defaults) {
 }
 
 module.exports = registry({
-  uri: 'http://publicbits.org/api'
+  uri: 'http://publicbits.org'
 })

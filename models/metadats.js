@@ -34,8 +34,8 @@ Metadats.prototype.update = function (id, metadat, opts, cb) {
   this.request(options, cb)
 }
 
-Metadats.prototype.create = function (metadat, opts, cb) {
-  if (typeof opts === 'function') return this.create(metadat, {}, opts)
+Metadats.prototype.publish = function (metadat, opts, cb) {
+  if (typeof opts === 'function') return this.publish(metadat, {}, opts)
 
   var options = extend({
     uri: '/api/metadat',
