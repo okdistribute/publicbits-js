@@ -10,19 +10,8 @@ function Metadats (defaults) {
 
 util.inherits(Metadats, Model)
 
-Metadats.prototype.refresh = function (id, opts, cb) {
-  if (typeof opts === 'function') return this.refresh(id, {}, opts)
-
-  var options = extend({
-    uri: '/api/metadat/' + id,
-    method: 'PUT',
-    json: {id: id, refresh: true}
-  }, opts)
-
-  this.request(options, cb)
-}
-
 Metadats.prototype.update = function (id, metadat, opts, cb) {
+  // requires login + ownership
   if (typeof opts === 'function') return this.update(id, metadat, {}, opts)
 
   var options = extend({
@@ -35,6 +24,7 @@ Metadats.prototype.update = function (id, metadat, opts, cb) {
 }
 
 Metadats.prototype.publish = function (metadat, opts, cb) {
+  // requires login
   if (typeof opts === 'function') return this.publish(metadat, {}, opts)
 
   var options = extend({
@@ -96,20 +86,6 @@ Metadats.prototype.getById = function (metadatId, opts, cb) {
     }
     return cb(null, resp, json)
   })
-}
-
-Metadats.prototype.searchByField = function (field, opts, cb) {
-  var params = {
-    query: opts.query,
-    limit: opts.limit || 50,
-    offset: opts.offset || 0
-  }
-  var options = {
-    uri: '/search/' + field + '?' + qs.stringify(params),
-    method: 'GET',
-    json: true
-  }
-  this.request(options, cb)
 }
 
 module.exports = Metadats
